@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const increasedAccount = fs.readFileSync(`${__dirname}/input.txt`).toString().split('\n')
+const numberOfTimesIncreased = fs.readFileSync(`${__dirname}/input.txt`).toString().split('\n')
 .map((depth, i, depths) => {
     if (i === 0) return 0;
 
@@ -8,4 +8,4 @@ const increasedAccount = fs.readFileSync(`${__dirname}/input.txt`).toString().sp
 })
 .reduce((previousValue, currentValue) => previousValue + currentValue);
 
-console.log(increasedAccount);
+console.log(numberOfTimesIncreased);
