@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { sumReducerFn } = require('./shared');
 
 const numberOfTimesIncreased = fs.readFileSync(`${__dirname}/input.txt`).toString().split('\n')
 .map((depth, i, depths) => {
@@ -6,6 +7,6 @@ const numberOfTimesIncreased = fs.readFileSync(`${__dirname}/input.txt`).toStrin
 
     return depth > depths[i - 1] ? 1 : 0;
 })
-.reduce((previousValue, currentValue) => previousValue + currentValue);
+.reduce(sumReducerFn);
 
 console.log(numberOfTimesIncreased);

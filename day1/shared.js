@@ -1,0 +1,1 @@
+export const sumReducerFn = (previousValue, currentValue) => previousValue + currentValue;
