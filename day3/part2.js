@@ -7,7 +7,6 @@ const sum = fs.readFileSync(`${__dirname}/input.txt`)
 .reduce((prev, next) => next.map((item, i) => (prev[i] || []).concat(next[i])), []);
 
 const gamma = parseInt(sum.map(b => {
-    console.log(typeof b)
     const ones = b.filter(bit => bit === 1).length;
     const zeros = b.filter(bit => bit === 0).length;
 
@@ -21,6 +20,6 @@ const epsilon = parseInt(sum.map(b => {
     return ones > zeros ? 0 : 1;
 }).join(''), 2);
 
-const powerConsumption = gamma * epsilon;
+const lifeSupportRating = oxygen * epsilon;
 
 console.log(powerConsumption);
