@@ -3,7 +3,7 @@ const fs = require('fs');
 const vector = {
     aim: 0,
     depth: 0,
-    forward: 0, 
+    forward: 0,
 };
 
 fs.readFileSync(`${__dirname}/input.txt`).toString().split('\n')
@@ -12,13 +12,12 @@ fs.readFileSync(`${__dirname}/input.txt`).toString().split('\n')
     switch (instruction[0]) {
         case 'up':      vector.aim -= instruction[1];     break;
         case 'down':    vector.aim += instruction[1];     break;
-        case 'forward': 
+        case 'forward':
         vector.forward += instruction[1];
-        vector.depth += vector.aim * instruction[1]
+        vector.depth += vector.aim * instruction[1];
         break;
         default: break;
     }
 })
 
 console.log(vector.forward * vector.depth);
-
