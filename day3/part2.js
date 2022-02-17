@@ -1,25 +1,36 @@
 const fs = require('fs');
 
+let maxDigits = 0;
 const sum = fs.readFileSync(`${__dirname}/input.txt`)
 .toString()
 .split('\n')
-.map(c => c.split('').map(c => parseInt(c, 10)))
-.reduce((prev, next) => next.map((item, i) => (prev[i] || []).concat(next[i])), []);
+.map(c => {
+    const b = c.split('').map(c => parseInt(c, 10))
+    maxDigits = b.length > maxDigits ? b.length : maxDigits;
+    return b;
+})
+function obtainRating(sum, mostCommon) {
+    let transposedSum = [];
 
-const gamma = parseInt(sum.map(b => {
-    const ones = b.filter(bit => bit === 1).length;
-    const zeros = b.filter(bit => bit === 0).length;
+    for (let index = 0; index < maxDigits; index++) {
 
-    return ones > zeros ? 1 : 0;
-}).join(''), 2);
+        transposedSum = sum.reduce((prev, next) => next.map((_, i) => (prev[i] || []).concat(next[i])), []);
 
-const epsilon = parseInt(sum.map(b => {
-    const ones = b.filter(bit => bit === 1).length;
-    const zeros = b.filter(bit => bit === 0).length;
+        const bitsAtIndex = transposedSum[index];
+        const ones = bitsAtIndex.filter(bit => bit === 1).length;
+        const zeros = bitsAtIndex.filter(bit => bit === 0).length;
 
-    return ones > zeros ? 0 : 1;
-}).join(''), 2);
+        if (mostCommon) {
+            sum = sum.length > 1 ? sum.filter(s => s[index] === (ones >= zeros ? 1 : 0)) : sum;
+        } else {
+            sum = sum.length > 1 ? sum.filter(s => s[index] === (ones >= zeros ? 0 : 1)) : sum;
+        }
+    }
+    return parseInt(sum[0].join(''), 2);
+}
 
-const lifeSupportRating = oxygen * epsilon;
+const oxygen = obtainRating(sum, true);
+const scrubber = obtainRating(sum, false);
 
-console.log(powerConsumption);
+const life = oxygen * scrubber;
+console.log(life);
